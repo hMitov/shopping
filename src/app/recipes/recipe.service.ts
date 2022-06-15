@@ -1,11 +1,9 @@
 import { Recipe } from './recipe.model';
 import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../shared/ingredients.model';
+import { Subject } from 'rxjs';
 
 export class RecipeService {
-
-  // selectedRecipe = new EventEmitter<Recipe>();
-
   recipes: Recipe[] = [
     new Recipe('A tasty schnitzel', 'The best meat in town - grab it now!', 'assets/schnitzel.jpeg',
       [ new Ingredient('meat', 5), new Ingredient('potatoes', 8) ]),
@@ -19,6 +17,10 @@ export class RecipeService {
 
   getRecipe(index: number) {
     return this.recipes[ index ];
+  }
+
+  updateRecipe(index: number, recipe: Recipe) {
+    this.recipes[index] = recipe;
   }
 
   constructor() {}

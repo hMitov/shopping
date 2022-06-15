@@ -12,10 +12,6 @@ export class RecipeListComponent implements OnInit {
   // @Output() recipeWasSelected = new EventEmitter<Recipe>();
   recipes: Recipe[] = [];
 
-  // onRecipeSelected(recipe : Recipe){
-  //   this.recipeWasSelected.emit(recipe);
-  // }
-
   constructor(private recipeService: RecipeService,
               private router: Router,
               private route: ActivatedRoute) {}
@@ -27,5 +23,4 @@ export class RecipeListComponent implements OnInit {
   onNewRecipe() {
     this.router.navigate([ 'new' ], { relativeTo: this.route });
   }
-
 }

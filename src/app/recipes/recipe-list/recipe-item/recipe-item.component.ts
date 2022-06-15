@@ -8,11 +8,12 @@ import { RecipeService } from '../../recipe.service';
   styleUrls: [ './recipe-item.component.css' ]
 })
 export class RecipeItemComponent implements OnInit {
-  @Input() recipe !: Recipe;
-  @Input() index !: number;
+  @Input() recipe: Recipe;
+  @Input() index: number;
+
   // @Output() recipeSelected = new EventEmitter<void>();
 
-  constructor(private recipeService : RecipeService) {}
+  constructor(private recipeService: RecipeService) {}
 
   ngOnInit(): void {}
 
@@ -20,6 +21,5 @@ export class RecipeItemComponent implements OnInit {
     // this.recipeSelected.emit();
     // this.recipeService.selectedRecipe.emit(this.recipe);
   }
-
 
 }
