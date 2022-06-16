@@ -11,7 +11,8 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipeDetailComponent implements OnInit {
   // @Input() recipe !: Recipe;
-  recipe !: Recipe;
+  id: number;
+  recipe: Recipe;
 
   constructor(private shoppingListService: ShoppingListService,
               private route: ActivatedRoute,
@@ -21,7 +22,8 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.recipe = this.recipeService.getRecipe(+params[ 'id' ]);
+        this.id = +params[ 'id' ];
+        this.recipe = this.recipeService.getRecipe(this.id);
       }
     );
   }
@@ -32,5 +34,10 @@ export class RecipeDetailComponent implements OnInit {
 
   onEditRecipe() {
     this.router.navigate([ 'edit' ], { relativeTo: this.route });
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.onDeleteRecipe(this.id);
+    this.router.navigate([ '../' ], { relativeTo: this.route });
   }
 }

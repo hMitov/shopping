@@ -1,9 +1,10 @@
 import { Recipe } from './recipe.model';
-import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../shared/ingredients.model';
 import { Subject } from 'rxjs';
 
 export class RecipeService {
+  recipesChanged = new Subject<Recipe[]>();
+
   recipes: Recipe[] = [
     new Recipe('A tasty schnitzel', 'The best meat in town - grab it now!', 'assets/schnitzel.jpeg',
       [ new Ingredient('meat', 5), new Ingredient('potatoes', 8) ]),
@@ -19,9 +20,26 @@ export class RecipeService {
     return this.recipes[ index ];
   }
 
-  updateRecipe(index: number, recipe: Recipe) {
-    this.recipes[index] = recipe;
+  addRecipe(newRecipe: Recipe) {
+    this.recipes.push(newRecipe);
+    this.recipesChanged.next(this.recipes.slice());
   }
 
-  constructor() {}
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[ index ] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  onDeleteRecipe(index: number) {
+    if(this.recipes.length - 1 >= index && index > -1) {
+      this.recipes.splice(index, 1);
+      this.recipesChanged.next(this.recipes.slice());
+    }
+  }
+
+  deleteIngredient(indexOfRecipe: number, indexOfIngredient: number) {
+    this.recipes[indexOfRecipe].ingredients.splice(indexOfIngredient, 1);
+    this.recipesChanged.next(this.recipes.slice());
+    console.log(this.recipes);
+  }
 }
